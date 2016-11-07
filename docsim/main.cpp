@@ -40,6 +40,8 @@ int main(int argc, char** argv) {       //Al programa le entran dos parámetros 
     } else cout << "El libro " << nombre_libro2 <<" no ha podido abrirse." << endl;
     loadFile_libro2.close();
     
+    cout << endl;
+    
     cout << "Jaccard similitude index for documents represented with k-shingle:" << endl;
     cout << KShingleSimilitude() << endl;
     
