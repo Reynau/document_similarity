@@ -1,2 +1,4 @@
 CMakeLists.txt
 .idea/
+*.o
+*.d
