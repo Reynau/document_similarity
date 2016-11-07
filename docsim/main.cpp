@@ -43,13 +43,13 @@ int main(int argc, char** argv) {       //Al programa le entran dos parámetros 
     cout << endl;
     
     cout << "Jaccard similitude index for documents represented with k-shingle:" << endl;
-    cout << KShingleSimilitude() << endl;
+    cout << KShingleSimilitude() << endl << endl;
     
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
-    cout << MinihashSimilitude() << endl;
+    cout << MinihashSimilitude() << endl << endl;
     
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
-    cout << LSHSimilitude() << endl;
+    cout << LSHSimilitude() << endl << endl;
     
     return 0;
 }
