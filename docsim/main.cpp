@@ -8,6 +8,12 @@
 using namespace std;
 
 int main(int argc, char** argv) {       //Al programa le entran dos parámetros en argv[1] y argv[2] que son los nombres de los dos archivos a comparar
+    
+    if (argc !=3) {
+	cout << "Usage: main libro1 libro2 \n libro1: nombre del primer archivo a comparar. \n libro2: nombre del segundo archivo a comparar." << endl;
+	return 1;
+    }
+    
     string nombre_libro1 = argv[1];     //Pillamos el nobmre del primer libro
     string nombre_libro2 = argv[2];     //Pillamos el nombre del segundo libro
     
