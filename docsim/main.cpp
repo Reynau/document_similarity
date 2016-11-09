@@ -22,7 +22,7 @@ vector<string> readFileAsArray(string file_name){
     if (loadFile_libro.is_open()) {    //Si existe el archivo lo leemos
         while (!loadFile_libro.eof()) { //Mientras existan palabras
             loadFile_libro >> output;
-            cout << output << " "; // <- borrar
+            //cout << output << " "; // <- borrar
             vec_doc.push_back(output);
         }
         cout << endl; // <- borrar
@@ -50,13 +50,19 @@ int main(int argc,
     cout << endl;
 
     cout << "Jaccard similitude index for documents represented with k-shingle:" << endl;
-    cout << KShingleSimilitude(doc1array, doc2array,2) << endl << endl;
+    const clock_t begin_time = clock();
+    cout << "similitud: "<< KShingleSimilitude(doc1array, doc2array,5) << endl;
+    std::cout << "tiempo ejecución: "<< float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl << endl;
 
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
-    cout << MinihashSimilitude() << endl << endl;
+    const clock_t begin_time2 = clock();
+    cout << MinihashSimilitude() << endl;
+    std::cout << "tiempo ejecución: "<< float( clock () - begin_time2 ) /  CLOCKS_PER_SEC << endl << endl;
 
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
-    cout << LSHSimilitude() << endl << endl;
+    const clock_t begin_time3 = clock();
+    cout << LSHSimilitude() << endl;
+    std::cout << "tiempo ejecución: "<< float( clock () - begin_time3 ) /  CLOCKS_PER_SEC << endl << endl;
 
 
 
