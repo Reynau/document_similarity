@@ -3,3 +3,7 @@ CMakeLists.txt
 *.o
 *.d
 docsim/Makefile
+nbproject/
+dist/
+.dep.inc
+Makefile
