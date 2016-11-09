@@ -1,62 +1,66 @@
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
+#include <vector>
 #include "JaccardKShingle.h"
 #include "JaccardMinihash.h"
 #include "LocalitySensitiveHashing.h"
+#include <map>
 
 using namespace std;
 
-int main(int argc, char** argv) {       //Al programa le entran dos parámetros en argv[1] y argv[2] que son los nombres de los dos archivos a comparar
-    
-    if (argc !=3) {
-	cout << "Usage: main libro1 libro2 \n libro1: nombre del primer archivo a comparar. \n libro2: nombre del segundo archivo a comparar." << endl;
-	return 1;
+
+
+
+vector<string> readFileAsArray(string file_name){
+    vector<string> vec_doc;
+
+    ifstream loadFile_libro;
+    loadFile_libro.open(file_name.c_str());
+    string output = "";
+    if (loadFile_libro.is_open()) {    //Si existe el archivo lo leemos
+        while (!loadFile_libro.eof()) { //Mientras existan palabras
+            loadFile_libro >> output;
+            cout << output << " "; // <- borrar
+            vec_doc.push_back(output);
+        }
+        cout << endl; // <- borrar
+    } else cout << "El libro " << file_name << " no ha podido abrirse." << endl;
+    loadFile_libro.close();    //Cerramos el archivo de lectura
+    return vec_doc;
+}
+int main(int argc,
+         char **argv) {       //Al programa le entran dos parámetros en argv[1] y argv[2] que son los nombres de los dos archivos a comparar
+
+    if (argc != 3) {
+        cout
+                << "Usage: main libro1 libro2 \n libro1: nombre del primer archivo a comparar. \n libro2: nombre del segundo archivo a comparar."
+                << endl;
+        return 1;
     }
-    
+
     string nombre_libro1 = argv[1];     //Pillamos el nobmre del primer libro
     string nombre_libro2 = argv[2];     //Pillamos el nombre del segundo libro
-    
-    string output = ""; //string que usaremos apra ir guardando las palabras
-    
-    ifstream loadFile_libro1;   //Archivo de entrada del primer libro
-    loadFile_libro1.open(nombre_libro1.c_str()); //Cargamos un archivo de entrada con el nombre assignado (hace falta covnersion de string a char)
-    output = "";
-    if (loadFile_libro1.is_open()) {    //Si existe un archuivo llamado como el primer libro lo leemos
-        while (!loadFile_libro1.eof()) { //Mientras existan palabras
-            loadFile_libro1 >> output;
-            cout << output << " "; // <- borrar
-            //AQUI HABRIA QUE GUARDAR LAS PALABRAS EN UN HASH MAP
-        }
-        cout << endl; // <- borrar
-    } else cout << "El libro " << nombre_libro1 <<" no ha podido abrirse." << endl;
-    loadFile_libro1.close();    //Cerramos el archivo de lectura
-    
-    //Repetimos para el segundo libro
-    ifstream loadFile_libro2;
-    loadFile_libro2.open(nombre_libro2.c_str());
-    output = "";
-    if (loadFile_libro2.is_open()) {
-        while (!loadFile_libro2.eof()) {
-            loadFile_libro2 >> output;
-            cout << output << " "; // <- borrar
-            //AQUI HABRIA QUE GUARDAR LAS PALABRAS EN UN HASH MAP
-        }
-        cout << endl; // <- borrar
-    } else cout << "El libro " << nombre_libro2 <<" no ha podido abrirse." << endl;
-    loadFile_libro2.close();
-    
+
+    vector<string> doc1array = readFileAsArray(nombre_libro1);
+    vector<string> doc2array = readFileAsArray(nombre_libro2);
+
+
     cout << endl;
-    
+
     cout << "Jaccard similitude index for documents represented with k-shingle:" << endl;
-    cout << KShingleSimilitude() << endl << endl;
-    
+    cout << KShingleSimilitude(doc1array, doc2array,2) << endl << endl;
+
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
     cout << MinihashSimilitude() << endl << endl;
-    
+
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
     cout << LSHSimilitude() << endl << endl;
-    
+
+
+
+
+
     return 0;
 }
-
