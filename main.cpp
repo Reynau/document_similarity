@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include "JaccardKShingle.h"
-#include "JaccardMinihash.h"
+#include "JaccardMinhash.h"
 #include "LocalitySensitiveHashing.h"
 
 using namespace std;
