@@ -3,7 +3,7 @@
 
 using namespace std;
 
-double MinihashSimilitude() {
+double MinhashSimilitude() {
     cout << "No implementado "; return 0;
 }
 
