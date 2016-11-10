@@ -4,3 +4,7 @@ CMakeLists.txt
 *.d
 docsim/Makefile
 *.stackdump
+nbproject/
+dist/
+.dep.inc
+Makefile
