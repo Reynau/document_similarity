@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
     const clock_t begin_time2 = clock();
-    cout << MinhashSimilitude() << endl;
+    cout << MinhashSimilitude(doc1array, doc2array, 20) << endl;
     std::cout << "Tiempo ejecución: "<< float( clock () - begin_time2 ) /  CLOCKS_PER_SEC << endl << endl;
 
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
