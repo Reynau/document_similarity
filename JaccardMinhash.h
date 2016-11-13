@@ -6,7 +6,8 @@
 
 using namespace std;
 
-unsigned long hash_f(string str, int p);
+double hash_f(string str, int p);
+string calculateMinHash (vector<string> &doc, unsigned int i);
 double MinhashSimilitude(vector<string> &doc1, vector<string> &doc2, unsigned int k);
 
 #endif
