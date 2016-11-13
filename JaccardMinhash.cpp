@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const bool comments = true;
+const bool comments = false;
 const vector<int> primes = {2, 23, 59, 97, 137, 179, 227, 269, 313, 367, 419, 461, 509, 571, 617, 661, 727, 773,
                             829, 883, 947, 1009, 1051, 1103, 1171, 1129, 1289, 1327, 1427, 1471, 1523, 1579, 1621};
 

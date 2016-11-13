@@ -12,6 +12,11 @@ unsigned int numHashFunctions;
 unsigned int stages;
 unsigned int buckets;
 
+bool MinHash_comments = false;
+bool ComputeMinHashForSet_comments = false;
+bool LSHSimilitude_comments = true;
+bool comments = true;
+
  /* MinHash is a hashing scheme that tents to produce similar signatures for sets
   * that have a high Jaccard similarity.
   * 
@@ -26,9 +31,9 @@ unsigned int buckets;
   * hash functions that are used to produce the signature).
   */
 
-//double jaccardIndex(vector<string> doc1, vector<string> doc2) {
+//double jaccardIndex(vector<unsigned int> doc1, vector<unsigned int> doc2) {
 //
-//    vector<string> words_intersection, words_union;
+//    vector<unsigned int> words_intersection, words_union;
 //    sort(doc1.begin(), doc1.end());
 //    sort(doc2.begin(), doc2.end());
 //
@@ -39,18 +44,11 @@ unsigned int buckets;
 //        return 0;
 //    }
 //    
-//    for (string s : doc1) cout << s << endl << endl;
-//    for (string s : doc2) cout << s << endl;
+//    for (unsigned int s : doc1) cout << s << endl << endl;
+//    for (unsigned int s : doc2) cout << s << endl;
 //
 //    return (double) words_intersection.size() / words_union.size();
 //}
-
-unsigned int hash_f(string str, unsigned int p) {
-    unsigned int h = 5381;
-    for (unsigned int i = 0; i < str.size(); ++i)
-        h = (((h << 5) + h) + str[i]) % p; // (h * 33 + c) % p
-    return h;
-}
 
 vector<unsigned int> MinHash() {
     vector<unsigned int> hash_coefs  = vector<unsigned int>(numHashFunctions);
@@ -58,50 +56,65 @@ vector<unsigned int> MinHash() {
     srand (time(NULL));
     for (int i = 0; i < numHashFunctions; i++)
     { 
-        hash_coefs [i] = rand();    
-        //cout << hash_coefs [i] << " ";
-    }//cout << endl;
+        hash_coefs [i] = rand()%10000;    
+        if (MinHash_comments) cout << hash_coefs [i] << " ";
+    }
+    if (MinHash_comments) cout << endl;
     return hash_coefs;
 }
 
+unsigned int hashFunction(string str, unsigned int p) {
+    unsigned long long h = 5381;
+    for (unsigned int i = 0; i < str.size(); ++i)
+        h = ((h << 5) + h) + str[i]; // (h * 33 + c)
+    return h % p;
+}
+
 vector<unsigned int> ComputeMinHashForSet(vector<string> doc){
-    vector<unsigned int> sig = vector<unsigned int>(numHashFunctions, numeric_limits<unsigned int>::max()); //Inicializamos el vector de signatures con el valor máximo de un string
+    vector<unsigned int> minHashes = vector<unsigned int>(numHashFunctions, numeric_limits<unsigned int>::max()); //Inicializamos el vector de signatures con el valor máximo de un string
     
     //sort(doc.begin(), doc.end()); //Ordenamos el documento
-
-    int index = 0;
+    if (ComputeMinHashForSet_comments) cout << endl; 
     for (string str: doc){
-        for (int i = 0; i < numHashFunctions; i++){
-            int hindex = hash_f(str, hashFunctions[i]);
-            if (hindex < sig[i]) sig[i] = hindex;
+        for (int h = 0; h < numHashFunctions; h++){
+            unsigned int hash = hashFunction(str, hashFunctions[h]);
+            minHashes[h] = min(minHashes[h], hash);
+            if (ComputeMinHashForSet_comments) cout << "\tHash calculado" << h << " " << minHashes[h];
         }
-        index++;
+        if (ComputeMinHashForSet_comments) cout << endl; 
     }
-//    for (int sig_index = 0; sig_index < n; sig_index++){ //MINHASH
-//        for (int i = 0; i < doc.size(); i++){
-//            sig[sig_index] = min(sig[sig_index], hash_f(doc[i], hashFunctions[i]));
-//        } cout << sig[sig_index] << " ";
-//    }cout << endl;  
-//    return sig;
+    return minHashes;
 }
+
+vector<vector<int>> minHashMatrix;
 
 double LSHSimilitude(vector<string> &doc1, vector<string> &doc2, unsigned int stages, unsigned int buckets, unsigned int n) {
     // signature size n
     ::numHashFunctions = n;
     ::stages = stages;
     ::buckets = buckets;
+    if (comments) cout << "Calculating Min Hash Values... ";
     ::hashFunctions = MinHash(); //Declaramos un vector de hash índices para computar el hash del documento
-    vector<unsigned int> sig1 = ComputeMinHashForSet(doc1);cout << endl;  
+    if (comments) cout << "done" << endl;
+    if (comments) cout << "Computing MinHash of doc1... ";
+    vector<unsigned int> sig1 = ComputeMinHashForSet(doc1);
+    if (comments) cout << "done" << endl;
+    if (comments) cout << "Computing MinHash of doc2... ";
     vector<unsigned int> sig2 = ComputeMinHashForSet(doc2);
+    if (comments) cout << "done" << endl;
+    
+    
+    
+    
     
     double sim = 0;
     for (int i = 0; i < numHashFunctions; i++) {
         if (sig1[i] == sig2[i]) {
             sim += 1;
         }
-        cout << sig1[i] << " " << sig2[i] << endl;
+        if (LSHSimilitude_comments) cout << sig1[i] << " " << sig2[i] << endl;
     }
-    cout << "LSH Similitude finaled " << sim << " " << ::numHashFunctions << " " << ((double)sim / (double)::numHashFunctions) << endl;
+    if (LSHSimilitude_comments)  cout << "LSH Similitude finaled " << sim << " " << ::numHashFunctions << " " << ((double)sim / (double)::numHashFunctions) << endl;
     return ((double)sim / (double)::numHashFunctions);
 }
 
