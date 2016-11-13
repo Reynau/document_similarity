@@ -48,18 +48,18 @@ int main(int argc, char **argv) {
 
     cout << "Jaccard similitude index for documents represented with k-shingle:" << endl;
     const clock_t begin_time = clock();
-    cout << "similitud: "<< KShingleSimilitude(doc1array, doc2array,5) << endl;
-    std::cout << "Tiempo ejecución: "<< float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl << endl;
+    cout << "Similitud: "<< KShingleSimilitude(doc1array, doc2array,5) << endl;
+    cout << "Tiempo ejecución: "<< float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl << endl;
 
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
     const clock_t begin_time2 = clock();
-    cout << MinhashSimilitude(doc1array, doc2array, 20) << endl;
-    std::cout << "Tiempo ejecución: "<< float( clock () - begin_time2 ) /  CLOCKS_PER_SEC << endl << endl;
-
+    cout << "Similitud: "<< MinhashSimilitude(doc1array, doc2array, 20) << endl;
+    cout << "Tiempo ejecución: "<< float( clock () - begin_time2 ) /  CLOCKS_PER_SEC << endl << endl;
+    
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
     const clock_t begin_time3 = clock();
-    cout << LSHSimilitude() << endl;
-    std::cout << "Tiempo ejecución: "<< float( clock () - begin_time3 ) /  CLOCKS_PER_SEC << endl;
+    cout << "Similitud: "<< LSHSimilitude(doc1array, doc2array, 3, 10, 20) << endl;
+    cout << "Tiempo ejecución: "<< float( clock () - begin_time3 ) /  CLOCKS_PER_SEC << endl;
 
     return 0;
 }
