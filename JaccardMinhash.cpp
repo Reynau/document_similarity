@@ -7,16 +7,6 @@ using namespace std;
 
 const bool comments = false;
 
-/* Universal Hashing:
- * https://en.wikipedia.org/wiki/Universal_hashing#Hashing_strings
- * */
-double JaccardMinhash::hash_f(string str, int p) {
-    unsigned long long h = 5381;
-    for (unsigned int i = 0; i < str.size(); ++i)
-        h = ((h << 5) + h) + str[i]; // (h * 33 + c)
-    return h % p;
-}
-
 /* Calculates:
  * To calculate hmin(S), you pass every member of S through the hash function h,
  * and find the member that gives the lowest result.

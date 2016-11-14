@@ -17,7 +17,6 @@ public:
     JaccardMinhash(HashFunctions &hashFunctions,vector<string> &doc1, vector<string> &doc2) :
         hashFunctions(hashFunctions), doc1(doc1), doc2(doc2) {};
 
-    double hash_f(string str, int p);
     string calculateMinHash (vector<string> &doc, unsigned int i);
     double MinhashSimilitude(unsigned int k);
 };
