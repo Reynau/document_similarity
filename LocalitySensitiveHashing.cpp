@@ -1,7 +1,5 @@
 #include "LocalitySensitiveHashing.h"
-#include <iostream>
-#include <algorithm>
-#include <vector>
+
 //#include "JaccardMinhash.h" // for hash_f function 
 
 using namespace std;
@@ -14,6 +12,9 @@ vector<vector<unsigned int>> hashMatrix2;
 
 vector<unsigned int> bucketSet1;
 vector<unsigned int> bucketSet2;
+
+map<string, int> doc1Shingles;
+map<string, int> doc2Shingles;
 
 bool ComputeMinHashForSet_comments = false;
 bool similitude_comments = true;
@@ -101,14 +102,6 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
     return (sim / (double)a.size());
 }
 
-void LocalitySensitiveHashing::shingleDocument(vector<string> &doc, vector<vector<string>> &docShingles){
-    for (int i = 0; i < doc.size()-9; i++){
-        for (int j = i; j < i+9; j++){
-            docShingles[i].push_back(doc[j]);
-        }
-    }
-}
-
 /*
  * Calculate the similitud of two set using LSH.
  * @param doc1 First document to compare.
@@ -119,7 +112,17 @@ void LocalitySensitiveHashing::shingleDocument(vector<string> &doc, vector<vecto
 double LocalitySensitiveHashing::LSHSimilitude() {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
     
-    shingleDocument(doc1, doc1Shingles);
+    int k1 = 5;
+    if (doc1.size() > 9) k1 = 9;
+    if (comments) cout << "Computing Shingles of doc1... ";
+    doc1Shingles = kShingleSetMap(doc1,k1);
+    if (comments) cout << "done" << endl;
+    
+    int k2 = 2;
+    if (doc2.size() > 9) k2 = 9;
+    if (comments) cout << "Computing Shingles of doc1... ";
+    doc2Shingles = kShingleSetMap(doc2,k2);
+    if (comments) cout << "done" << endl;
     
     
 //    if (comments) cout << "Computing MinHash of doc1... ";
@@ -154,4 +157,5 @@ double LocalitySensitiveHashing::LSHSimilitude() {
 //    
 //    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
 //    return similitude(bucketSet1, bucketSet2);
+    return 0;
 }
