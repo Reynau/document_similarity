@@ -6,6 +6,6 @@
 
 using namespace std;
 
-double LSHSimilitude(vector<string> &doc1, vector<string> &doc2, unsigned int stages, unsigned int buckets, unsigned int n);
+double LSHSimilitude(vector<string> &doc1, vector<string> &doc2, unsigned int k, unsigned int b);
 
 #endif

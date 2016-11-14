@@ -58,7 +58,9 @@ int main(int argc, char **argv) {
     
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
     const clock_t begin_time3 = clock();
-    cout << "Similitud: "<< LSHSimilitude(doc1array, doc2array, 3, 10, 20) << endl;
+    
+    //3ht parámeter is the number of k minhash functions, 4ht parámeter is the number of buckets
+    cout << "Similitud: "<< LSHSimilitude(doc1array, doc2array, 200, 50) << endl;
     cout << "Tiempo ejecución: "<< float( clock () - begin_time3 ) /  CLOCKS_PER_SEC << endl;
 
     return 0;
