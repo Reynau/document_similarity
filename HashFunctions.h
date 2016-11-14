@@ -20,8 +20,9 @@ private:
 public:
     HashFunctions();
     const vector<unsigned int> &getPrimeNumbers();
-    uint64_t integerHash(uint64_t x);
+    unsigned  int integerHash(unsigned int x);
     double stringHash(string str, unsigned int p);
+    unsigned int hash_str(const char* s);
 
 };
 

@@ -9,3 +9,4 @@ dist/
 .dep.inc
 Makefile
 LocalitySensitiveHashing - copia.cpp
+/LocalitySensitiveHashing - copia.h

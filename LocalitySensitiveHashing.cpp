@@ -16,7 +16,7 @@ vector<unsigned int> bucketSet1;
 vector<unsigned int> bucketSet2;
 
 bool ComputeMinHashForSet_comments = false;
-bool similitude_comments = false;
+bool similitude_comments = true;
 bool comments = true;
 
 /*
@@ -101,6 +101,14 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
     return (sim / (double)a.size());
 }
 
+void LocalitySensitiveHashing::shingleDocument(vector<string> &doc, vector<vector<string>> &docShingles){
+    for (int i = 0; i < doc.size()-9; i++){
+        for (int j = i; j < i+9; j++){
+            docShingles[i].push_back(doc[j]);
+        }
+    }
+}
+
 /*
  * Calculate the similitud of two set using LSH.
  * @param doc1 First document to compare.
@@ -110,36 +118,40 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
  */
 double LocalitySensitiveHashing::LSHSimilitude() {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
-    if (comments) cout << "Computing MinHash of doc1... ";
-    computeMinHashForSet(this->doc1, hashSet1, primes);
-    if (comments) cout << "done" << endl;
     
-    if (comments) cout << "Computing MinHash of doc2... ";
-    computeMinHashForSet(this->doc2, hashSet2, primes);
-    if (comments) cout << "done" << endl;
-
-    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
-    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
-    
-    //cout << similittude (v1, v2) << endl;
-    
-    if (comments) cout << "Breaking hashSet1 into bands & rows... ";
-    breakSetIntoBandRows(hashSet1, hashMatrix1);
-    if (comments) cout << "done" << endl;
-    
-    if (comments) cout << "Breaking hashSet1 into bands & rows... ";
-    breakSetIntoBandRows(hashSet2, hashMatrix2);   
-    if (comments) cout << "done" << endl;
+    shingleDocument(doc1, doc1Shingles);
     
     
-    if (comments) cout << "Computing MinHash of hashMatrix1... ";
-    computeMinHashForMatrix(hashMatrix1, bucketSet1);
-    if (comments) cout << "done" << endl;
-    
-    if (comments) cout << "Computing MinHash of hashMatrix2... ";
-    computeMinHashForMatrix(hashMatrix2, bucketSet2);
-    if (comments) cout << "done" << endl;
-    
-    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
-    return similitude(bucketSet1, bucketSet2);
+//    if (comments) cout << "Computing MinHash of doc1... ";
+//    computeMinHashForSet(this->doc1, hashSet1, primes);
+//    if (comments) cout << "done" << endl;
+//    
+//    if (comments) cout << "Computing MinHash of doc2... ";
+//    computeMinHashForSet(this->doc2, hashSet2, primes);
+//    if (comments) cout << "done" << endl;
+//
+//    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
+//    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
+//    
+//    //cout << similittude (v1, v2) << endl;
+//    
+//    if (comments) cout << "Breaking hashSet1 into bands & rows... ";
+//    breakSetIntoBandRows(hashSet1, hashMatrix1);
+//    if (comments) cout << "done" << endl;
+//    
+//    if (comments) cout << "Breaking hashSet1 into bands & rows... ";
+//    breakSetIntoBandRows(hashSet2, hashMatrix2);   
+//    if (comments) cout << "done" << endl;
+//    
+//    
+//    if (comments) cout << "Computing MinHash of hashMatrix1... ";
+//    computeMinHashForMatrix(hashMatrix1, bucketSet1);
+//    if (comments) cout << "done" << endl;
+//    
+//    if (comments) cout << "Computing MinHash of hashMatrix2... ";
+//    computeMinHashForMatrix(hashMatrix2, bucketSet2);
+//    if (comments) cout << "done" << endl;
+//    
+//    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
+//    return similitude(bucketSet1, bucketSet2);
 }

@@ -13,6 +13,8 @@ private:
     HashFunctions hashFunctions;
     vector<string> &doc1;
     vector<string> &doc2;
+    vector<vector<string>> &doc1Shingles;
+    vector<vector<string>> &doc2shingles;
 
     unsigned int numHashFunctions;
     unsigned int numBands;
@@ -28,6 +30,8 @@ public:
     void breakSetIntoBandRows(vector<pair<string,unsigned int>> &hashSet,  vector<vector<unsigned int>> &hashMatrix);
     void computeMinHashForMatrix(vector<vector<unsigned int>> &hashMatrix, vector<unsigned int> &bucketSet);
     template <typename T> double similitude(vector<T> &a, vector<T> &b);
+    
+    void shingleDocument(vector<string> &doc, vector<vector<string>> &docShingles);
 };
 
 

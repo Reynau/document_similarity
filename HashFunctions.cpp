@@ -28,10 +28,10 @@ const vector<unsigned int> &HashFunctions::getPrimeNumbers() {
  * Hashing for numbers, necesari for LSH.
  * @param x Number to hash.
  */
-uint64_t HashFunctions::integerHash(uint64_t x) {
-    x = (x ^ (x >> 30)) * UINT64_C(0xbf58476d1ce4e5b9);
-    x = (x ^ (x >> 27)) * UINT64_C(0x94d049bb133111eb);
-    x = x ^ (x >> 31);
+unsigned int HashFunctions::integerHash(unsigned int x) {
+    x = ((x >> 16) ^ x) * 0x45d9f3b;
+    x = ((x >> 16) ^ x) * 0x45d9f3b;
+    x = (x >> 16) ^ x;
     return x;
 }
 
@@ -45,4 +45,18 @@ double HashFunctions::stringHash(string str, unsigned int p) {
     for (unsigned int i = 0; i < str.size(); ++i)
         hash = (((hash << 5) + hash) + str[i]);
     return hash % p;
+}
+
+#define A 54059 /* a prime */
+#define B 76963 /* another prime */
+#define C 86969 /* yet another prime */
+#define FIRSTH 37 /* also prime */
+unsigned int HashFunctions::hash_str(const char* s)
+{
+   unsigned int h = FIRSTH;
+   while (*s) {
+     h = (h * A) ^ (s[0] * B);
+     s++;
+   }
+   return h; // or return h % C;
 }
