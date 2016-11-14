@@ -8,9 +8,12 @@
 void HashFunctions::loadPrimeNumbers () {
     ifstream File;
     File.open("primes.txt");
-    int number;
-    while(File >> number)
-        this->primeNumbers.push_back(number);
+    if (File.is_open()) {
+        int number;
+        while(File >> number)
+            this->primeNumbers.push_back(number);
+    }
+    File.close();
 }
 
 HashFunctions::HashFunctions() {
@@ -40,6 +43,6 @@ uint64_t HashFunctions::integerHash(uint64_t x) {
 double HashFunctions::stringHash(string str, unsigned int p) {
     unsigned long long hash = 5381;
     for (unsigned int i = 0; i < str.size(); ++i)
-        hash = (((hash << 5) + hash) + str[i]) % p;
-    return hash;
+        hash = (((hash << 5) + hash) + str[i]);
+    return hash % p;
 }
