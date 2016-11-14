@@ -1,9 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include <sstream>
-#include <string>
 #include <vector>
-#include <map>
 #include "JaccardKShingle.h"
 #include "JaccardMinhash.h"
 #include "LocalitySensitiveHashing.h"
@@ -38,6 +35,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    HashFunctions hashFunctions = HashFunctions();
+
     string nombre_libro1 = argv[1];     //Pillamos el nobmre del primer libro
     string nombre_libro2 = argv[2];     //Pillamos el nombre del segundo libro
 
@@ -53,7 +52,8 @@ int main(int argc, char **argv) {
 
     cout << "Jaccard similitude index for documents represented with minhash:" << endl;
     const clock_t begin_time2 = clock();
-    cout << "Similitud: "<< MinhashSimilitude(doc1array, doc2array, 20) << endl;
+    JaccardMinhash jaccardMinhash = JaccardMinhash(hashFunctions, doc1array, doc2array);
+    cout << "Similitud: "<< jaccardMinhash.MinhashSimilitude(400) << endl;
     cout << "Tiempo ejecución: "<< float( clock () - begin_time2 ) /  CLOCKS_PER_SEC << endl << endl;
     
     cout << "Similitude index for documents with Locality-Sensitive Hashing (LSH):" << endl;
