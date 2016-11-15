@@ -40,14 +40,6 @@ double KShingleSimilitude(std::vector<string> &doc1,std::vector<string> &doc2, u
 
     }
     double union_count = union_map.size();
-    //DEBUG
-    /*
-    for (std::map<string,int>::iterator it=union_map.begin(); it!=union_map.end(); ++it)
-        std::cout << it->first << " => " << it->second << '\n';
-    std::cout << intersection_count << " / " << union_count << std::endl;
-    */
-    //END DEBUG
-
     return intersection_count/union_count;
 
 }

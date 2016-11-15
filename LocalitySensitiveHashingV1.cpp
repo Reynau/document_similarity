@@ -1,6 +1,4 @@
-#include "LocalitySensitiveHashing.h"
-
-//#include "JaccardMinhash.h" // for hash_f function 
+#include "LocalitySensitiveHashingV1.h"
 
 using namespace std;
 
@@ -16,9 +14,6 @@ vector<vector<pair<string,unsigned int>>> hashMatrix2;
 vector<unsigned int> bucketSet1;
 vector<unsigned int> bucketSet2;
 
-bool ComputeMinHashForSet_comments = false;
-bool computeMinHashForMatrix_comments = false;
-bool similitude_comments = false;
 bool comments = false;
 
 /*
@@ -28,8 +23,7 @@ bool comments = false;
  */
 void LocalitySensitiveHashing::computeMinHashForSet(map<string, int> &docShingles, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes){
     hashSet = vector<pair<string,unsigned int>>(this->numHashFunctions, pair<string,unsigned int>("",numeric_limits<unsigned int>::max()));
-    //sort(doc.begin(), doc.end()); //Ordenamos el documento BORRAR "&" SI SE DESCOMENTA ESTO, SI NO SE PASARÁ POR COPIA
-    if (ComputeMinHashForSet_comments) cout << endl;
+    
     for (int i = 0; i < numHashFunctions; i++){
         for (auto word: docShingles) {
             double h = this->hashFunctions.stringHash(word.first, primes[i]);
@@ -38,7 +32,6 @@ void LocalitySensitiveHashing::computeMinHashForSet(map<string, int> &docShingle
                 hashSet[i].second = h; 
             }
         }
-        if (ComputeMinHashForSet_comments) cout << hashSet[i].first << endl; 
     }
 }
 
@@ -69,7 +62,7 @@ void LocalitySensitiveHashing::breakSetIntoBandRows(vector<pair<string,unsigned 
  */
 void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string,unsigned int>>> &hashMatrix, vector<unsigned int> &bucketSet, const vector<unsigned int> &primes){
     bucketSet = vector<unsigned int>(this->numBands,numeric_limits<unsigned int>::max());
-    if (ComputeMinHashForSet_comments) cout << endl;
+    
     for (int i = 0; i < numBands; i++){
         for (auto hash: hashMatrix[i]) {
             double h = this->hashFunctions.stringHash(hash.first, primes[110]);
@@ -77,17 +70,8 @@ void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string
                 bucketSet[i] = h;
             }
         }
-        if (computeMinHashForMatrix_comments) cout << bucketSet[i] << endl;
     }
 }
-
-//    if (ComputeMinHashForSet_comments) cout << endl;
-//    for (int i = 0; i < rowsInBands; i++){
-//        for (unsigned int hash: hashMatrix[i]) {
-//            double h = this->hashFunctions.integerHash(hash);
-//            if (bucketSet[i] > h) { 
-//                bucketSet[i] = h;
-
 
 /*
  * Calculate the similitud of two set comparate their components. They accept set of strings o set of integers.
@@ -97,17 +81,10 @@ void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string
  */
 template <typename T>
 double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
-    if (similitude_comments) cout << "[set1, set2]" << endl;
     double sim = 0;
     for (int i = 0; i < a.size(); i++) {
         if (a[i] == b[i]) sim += 1;
-        if (similitude_comments) cout << (a[i] == b[i]) << " " << a[i] << " || " << b[i] << endl;
     }
-    if (similitude_comments)  cout << "LSH Similitude finished: " 
-            "\n Same words: " << sim <<
-            "\n Has Functions:  " << this->numBands << endl;
-
-    if (similitude_comments) cout << (double)sim << " " << a.size() << endl;
     return (sim / (double)a.size());
 }
 
@@ -121,6 +98,7 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
 double LocalitySensitiveHashing::LSHSimilitude() {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
     
+    //SHINGLES
     int k1 = 2;
     if (doc1.size() > 9) k1 = 9;
     if (comments) cout << "Computing Shingles of set1... ";
@@ -133,7 +111,7 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     doc2Shingles = kShingleSetMap(doc2,k2);
     if (comments) cout << "done" << endl;
  
-    
+    //MINHASHES
     if (comments) cout << "Computing MinHash of set1... ";
     computeMinHashForSet(doc1Shingles, hashSet1, primes);
     if (comments) cout << "done" << endl;
@@ -141,12 +119,8 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     if (comments) cout << "Computing MinHash of set2... ";
     computeMinHashForSet(doc2Shingles, hashSet2, primes);
     if (comments) cout << "done" << endl;
-
-//    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
-//    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
-
-//    cout << similitude(v1, v2) << endl;
     
+    //BREAKING INTO BUCKETS
     if (comments) cout << "Breaking hashSet1 into bands & rows... ";
     breakSetIntoBandRows(hashSet1, hashMatrix1);
     if (comments) cout << "done" << endl;
@@ -155,7 +129,7 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     breakSetIntoBandRows(hashSet2, hashMatrix2);   
     if (comments) cout << "done" << endl;
     
-    
+    //MINHASHING BUCKETS
     if (comments) cout << "Computing MinHash of hashMatrix1... ";
     computeMinHashForMatrix(hashMatrix1, bucketSet1, primes);
     if (comments) cout << "done" << endl;
@@ -164,6 +138,5 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     computeMinHashForMatrix(hashMatrix2, bucketSet2, primes);
     if (comments) cout << "done" << endl;
 
-//    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
     return similitude(bucketSet1, bucketSet2);
 }

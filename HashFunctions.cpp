@@ -1,10 +1,8 @@
-//
-// Created by Xavi on 14/11/2016.
-//
-
 #include "HashFunctions.h"
 
-
+/*
+ * Loader for the primeNumbers file for use in Hashing functions.
+ */
 void HashFunctions::loadPrimeNumbers () {
     ifstream File;
     File.open("primes.txt");
@@ -16,10 +14,16 @@ void HashFunctions::loadPrimeNumbers () {
     File.close();
 }
 
+/*
+ * Loader for the primeNumbers documents for use in Hashing functions.
+ */
 HashFunctions::HashFunctions() {
     this->loadPrimeNumbers();
 }
 
+/*
+ * Getter for the primeNumbers documents for use in Hashing functions.
+ */
 const vector<unsigned int> &HashFunctions::getPrimeNumbers() {
     return this->primeNumbers;
 }

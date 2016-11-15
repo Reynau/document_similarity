@@ -1,4 +1,4 @@
-#ifndef SENSITIVE_HASHING   // To make sure you don't declare the function more than once by including the header multiple times.
+#ifndef SENSITIVE_HASHING
 #define SENSITIVE_HASHING
 
 #include <string>

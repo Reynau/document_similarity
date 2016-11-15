@@ -1,6 +1,6 @@
 #include "JaccardMinhash.h"
 
-#include <stdlib.h>     /* srand, rand */
+#include <stdlib.h>
 #include<fstream>
 
 using namespace std;

@@ -1,7 +1,3 @@
-//
-// Created by Xavi on 14/11/2016.
-//
-
 #ifndef DOCUMENT_SIMILARITY_HASHFUNCTIONS_H
 #define DOCUMENT_SIMILARITY_HASHFUNCTIONS_H
 
@@ -26,6 +22,5 @@ public:
     unsigned long HashVector(const vector<unsigned int>& v);
 
 };
-
 
 #endif //DOCUMENT_SIMILARITY_HASHFUNCTIONS_H

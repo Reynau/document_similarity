@@ -1,26 +1,17 @@
-//
-// Created by Xavi on 15/11/2016.
-//
-
-#include "LSH.h"
+#include "LocalitySensitiveHashingV2.h"
 #include "JaccardMinhash.h"
 
 double LSH::generate() {
-    cout << "Dividing docs in K-Shingles...";
     divideKShingles(this->doc1);
     divideKShingles(this->doc2);
-    cout << " FINISHED" << endl;
 
-    cout << "Calculating MinHash signatures...";
     vector<unsigned int> mhSignature1 = calculateMinhashSignature(this->doc1);
     vector<unsigned int> mhSignature2 = calculateMinhashSignature(this->doc2);
-    cout << " FINISHED" << endl;
 
-    cout << "Calculating signature Matrix.." << endl;
     vector<vector<unsigned int>> signMat = {mhSignature1, mhSignature2};
-    cout << "Calculating bucket map.." << endl;
+
     map<unsigned long, pair<bool, bool>> bucketMap = generateBucketMap(signMat);
-    cout << "Calculating jaccard similarity.." << endl;
+
     return calculateJaccardSimilarity(bucketMap);
 }
 

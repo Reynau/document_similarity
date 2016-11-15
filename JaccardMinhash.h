@@ -1,4 +1,4 @@
-#ifndef JACCARD_MH   // To make sure you don't declare the function more than once by including the header multiple times.
+#ifndef JACCARD_MH
 #define JACCARD_MH
 
 #include <iostream>
@@ -20,6 +20,5 @@ public:
     string calculateMinHash (vector<string> &set, unsigned int i);
     double MinhashSimilitude(unsigned int t);
 };
-
 
 #endif
