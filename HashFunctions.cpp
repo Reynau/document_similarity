@@ -47,16 +47,14 @@ double HashFunctions::stringHash(string str, unsigned int p) {
     return hash % p;
 }
 
-#define A 54059 /* a prime */
-#define B 76963 /* another prime */
-#define C 86969 /* yet another prime */
+//#define A 54059 /* a prime */
+//#define B 76963 /* another prime */
+//#define C 86969 /* yet another prime */
 #define FIRSTH 37 /* also prime */
-unsigned int HashFunctions::hash_str(const char* s)
+unsigned int HashFunctions::hash_str(string s, int A, int B, int C)
 {
    unsigned int h = FIRSTH;
-   while (*s) {
+   for (unsigned int i = 0; i < s.size(); ++i)
      h = (h * A) ^ (s[0] * B);
-     s++;
-   }
-   return h; // or return h % C;
+   return h % C; // or return h % C;
 }

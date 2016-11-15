@@ -30,8 +30,8 @@ public:
 
     double LSHSimilitude();
     void computeMinHashForSet(map<string, int> &docShingles, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes);
-    void breakSetIntoBandRows(vector<pair<string,unsigned int>> &hashSet,  vector<vector<unsigned int>> &hashMatrix);
-    void computeMinHashForMatrix(vector<vector<unsigned int>> &hashMatrix, vector<unsigned int> &bucketSet);
+    void breakSetIntoBandRows(vector<pair<string,unsigned int>> &hashSet,  vector<vector<pair<string,unsigned int>>> &hashMatrix);
+    void computeMinHashForMatrix(vector<vector<pair<string,unsigned int>>> &hashMatrix, vector<unsigned int> &bucketSet, const vector<unsigned int> &primes);
     template <typename T> double similitude(vector<T> &a, vector<T> &b);
 };
 
