@@ -17,9 +17,9 @@ vector<unsigned int> bucketSet1;
 vector<unsigned int> bucketSet2;
 
 bool ComputeMinHashForSet_comments = false;
-bool computeMinHashForMatrix_comments = true;
-bool similitude_comments = true;
-bool comments = true;
+bool computeMinHashForMatrix_comments = false;
+bool similitude_comments = false;
+bool comments = false;
 
 /*
  * Compute the minHash for a set of strings (documento to compare).
@@ -69,7 +69,6 @@ void LocalitySensitiveHashing::breakSetIntoBandRows(vector<pair<string,unsigned 
  */
 void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string,unsigned int>>> &hashMatrix, vector<unsigned int> &bucketSet, const vector<unsigned int> &primes){
     bucketSet = vector<unsigned int>(this->rowsInBands,numeric_limits<unsigned int>::max());
-    
     if (ComputeMinHashForSet_comments) cout << endl;
     for (int i = 0; i < rowsInBands; i++){
         for (auto hash: hashMatrix[i]) {
@@ -78,7 +77,7 @@ void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string
                 bucketSet[i] = h;
             }
         }
-        if (computeMinHashForMatrix_comments) cout << bucketSet[i] << endl; 
+        if (computeMinHashForMatrix_comments) cout << bucketSet[i] << endl;
     }
 }
 
