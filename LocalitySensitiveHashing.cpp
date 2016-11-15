@@ -97,7 +97,7 @@ void LocalitySensitiveHashing::computeMinHashForMatrix(vector<vector<pair<string
  */
 template <typename T>
 double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
-    if (similitude_comments) cout << "[doc1, doc2]" << endl;
+    if (similitude_comments) cout << "[set1, set2]" << endl;
     double sim = 0;
     for (int i = 0; i < a.size(); i++) {
         if (a[i] == b[i]) sim += 1;
@@ -113,8 +113,8 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
 
 /*
  * Calculate the similitud of two set using LSH.
- * @param doc1 First document to compare.
- * @param doc2 Second document to compare.
+ * @param set1 First document to compare.
+ * @param set2 Second document to compare.
  * @param k Number of the hash Functions for minHash.
  * @param b Number of bands for LSH in the hashMatrix.
  */
@@ -123,22 +123,22 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     
     int k1 = 2;
     if (doc1.size() > 9) k1 = 9;
-    if (comments) cout << "Computing Shingles of doc1... ";
+    if (comments) cout << "Computing Shingles of set1... ";
     doc1Shingles = kShingleSetMap(doc1,k1);
     if (comments) cout << "done" << endl;
     
     int k2 = 2;
     if (doc2.size() > 9) k2 = 9;
-    if (comments) cout << "Computing Shingles of doc2... ";
+    if (comments) cout << "Computing Shingles of set2... ";
     doc2Shingles = kShingleSetMap(doc2,k2);
     if (comments) cout << "done" << endl;
  
     
-    if (comments) cout << "Computing MinHash of doc1... ";
+    if (comments) cout << "Computing MinHash of set1... ";
     computeMinHashForSet(doc1Shingles, hashSet1, primes);
     if (comments) cout << "done" << endl;
     
-    if (comments) cout << "Computing MinHash of doc2... ";
+    if (comments) cout << "Computing MinHash of set2... ";
     computeMinHashForSet(doc2Shingles, hashSet2, primes);
     if (comments) cout << "done" << endl;
 

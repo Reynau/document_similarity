@@ -11,13 +11,13 @@ using namespace std;
 class JaccardMinhash {
 private:
     HashFunctions hashFunctions;
-    vector<string> doc1;
-    vector<string> doc2;
+    vector<string> set1;
+    vector<string> set2;
 public:
-    JaccardMinhash(HashFunctions &hashFunctions,vector<string> &doc1, vector<string> &doc2) :
-        hashFunctions(hashFunctions), doc1(doc1), doc2(doc2) {};
+    JaccardMinhash(HashFunctions &hashFunctions,vector<string> &set1, vector<string> &set2) :
+        hashFunctions(hashFunctions), set1(set1), set2(set2) {};
 
-    string calculateMinHash (vector<string> &doc, unsigned int i);
+    string calculateMinHash (vector<string> &set, unsigned int i);
     double MinhashSimilitude(unsigned int k);
 };
 
