@@ -5,6 +5,7 @@
 #include "JaccardKShingle.h"
 #include "JaccardMinhash.h"
 #include "LocalitySensitiveHashing.h"
+#include "LSH.h"
 
 using namespace std;
 
@@ -67,6 +68,8 @@ int main(int argc, char **argv) {
     //3ht parámeter is the number of k minhash functions, 4ht parámeter is the number of buckets
     LocalitySensitiveHashing localitySensitiveHashing = LocalitySensitiveHashing(hashFunctions, doc1array, doc2array, 200, 100);
     cout << "Similitud: "<< localitySensitiveHashing.LSHSimilitude() << endl;
+    LSH lsh = LSH(hashFunctions, doc1array, doc2array, 2, 200, 3);
+    cout << "Similitud: "<< lsh.generate() << endl;
     cout << "Tiempo ejecución: "<< float( clock () - begin_time3 ) /  CLOCKS_PER_SEC << endl;
 
     return 0;
