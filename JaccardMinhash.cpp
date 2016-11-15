@@ -7,6 +7,16 @@ using namespace std;
 
 const bool comments = false;
 
+void JaccardMinhash::divideKShingles(vector<string> &doc, unsigned int k) {
+    vector<string> sDoc;
+    unsigned long final = doc.size() - k;
+    for (int i = 0; i < final; i++){
+        string s = doc[i];
+        for(int j=1; j<k; j++) s.append(doc[i+j]);
+    }
+    doc = sDoc;
+}
+
 /* Calculates:
  * To calculate hmin(S), you pass every member of S through the hash function h,
  * and find the member that gives the lowest result.
@@ -26,7 +36,7 @@ string JaccardMinhash::calculateMinHash (vector<string> &set, unsigned int prime
  * To calculate hmin(S), you pass every member of S through the hash function h,
  * and find the member that gives the lowest result.
  * */
-double JaccardMinhash::MinhashSimilitude(unsigned int t) {
+double JaccardMinhash::MinhashSimilitude(unsigned int k, unsigned int t) {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
     // Pre-evaluation: K needs to be < primes.size()
     if (t >= primes.size()) {
@@ -37,6 +47,8 @@ double JaccardMinhash::MinhashSimilitude(unsigned int t) {
     unsigned int y = 0;
     // 1. For k hash functions: Calculate hmin for each doc
     for (unsigned int i = 0; i < t; ++i) {
+        divideKShingles(this->set1, k);
+        divideKShingles(this->set2, k);
         if (comments) cout << "Working on hash function #" << i << "." << endl;
         // 1.2. Calculates hmin for set1
         if (comments) cout << "Calculating hmin for set1... ";

@@ -20,7 +20,7 @@ void LSH::divideKShingles(vector<string> &doc) {
     unsigned long final = doc.size() - this->k;
     for (int i = 0; i < final; i++){
         string s = doc[i];
-        for(int j=1; j<k; j++) s.append(doc[i+j]);
+        for(int j = 1; j < this->k; j++) s.append(doc[i+j]);
     }
     doc = sDoc;
 }
