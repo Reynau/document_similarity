@@ -24,7 +24,7 @@ HashFunctions::HashFunctions() {
 /*
  * Getter for the primeNumbers documents for use in Hashing functions.
  */
-const vector<unsigned int> &HashFunctions::getPrimeNumbers() {
+const vector<unsigned int> HashFunctions::getPrimeNumbers() {
     return this->primeNumbers;
 }
 

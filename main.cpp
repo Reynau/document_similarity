@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include "HashFunctions.h"
 #include "JaccardKShingle.h"
 #include "JaccardMinhash.h"
 #include "LocalitySensitiveHashingV1.h"
