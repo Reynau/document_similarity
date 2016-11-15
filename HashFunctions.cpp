@@ -58,3 +58,13 @@ unsigned int HashFunctions::hash_str(string s, int A, int B, int C)
      h = (h * A) ^ (s[0] * B);
    return h % C; // or return h % C;
 }
+
+// http://stackoverflow.com/questions/283165/ways-to-hash-a-numeric-vector
+// For simplicity, I'm not worrying about overflow, and assuming |v| < 7.
+unsigned long HashFunctions::HashVector(const vector<unsigned int>& v) {
+    const int N = this->primeNumbers[800];
+    const int w[] = {234, 739, 934, 23, 828, 194};  // Carefully chosen constants.
+    unsigned long result = 0;
+    for (int i = 0; i < v.size(); ++i) result = (result + w[i] * v[i]) % N;
+    return result;
+}

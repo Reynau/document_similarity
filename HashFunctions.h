@@ -23,6 +23,7 @@ public:
     unsigned  int integerHash(unsigned int x);
     double stringHash(string str, unsigned int p);
     unsigned int hash_str(string s, int A, int B, int C);
+    unsigned long HashVector(const vector<unsigned int>& v);
 
 };
 
