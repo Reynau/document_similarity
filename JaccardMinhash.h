@@ -18,7 +18,7 @@ public:
         hashFunctions(hashFunctions), set1(set1), set2(set2) {};
 
     string calculateMinHash (vector<string> &set, unsigned int i);
-    double MinhashSimilitude(unsigned int k);
+    double MinhashSimilitude(unsigned int t);
 };
 
 

@@ -18,7 +18,7 @@ vector<unsigned int> bucketSet2;
 
 bool ComputeMinHashForSet_comments = false;
 bool computeMinHashForMatrix_comments = false;
-bool similitude_comments = true;
+bool similitude_comments = false;
 bool comments = false;
 
 /*
@@ -142,8 +142,8 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     computeMinHashForSet(doc2Shingles, hashSet2, primes);
     if (comments) cout << "done" << endl;
 
-    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
-    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
+//    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
+//    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
 
 //    cout << similitude(v1, v2) << endl;
     
@@ -164,6 +164,6 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     computeMinHashForMatrix(hashMatrix2, bucketSet2, primes);
     if (comments) cout << "done" << endl;
 
-    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
+//    cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
     return similitude(bucketSet1, bucketSet2);
 }

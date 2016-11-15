@@ -26,17 +26,17 @@ string JaccardMinhash::calculateMinHash (vector<string> &set, unsigned int prime
  * To calculate hmin(S), you pass every member of S through the hash function h,
  * and find the member that gives the lowest result.
  * */
-double JaccardMinhash::MinhashSimilitude(unsigned int k) {
+double JaccardMinhash::MinhashSimilitude(unsigned int t) {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
     // Pre-evaluation: K needs to be < primes.size()
-    if (k >= primes.size()) {
-        k = (unsigned int)primes.size();
+    if (t >= primes.size()) {
+        t = (unsigned int)primes.size();
         cout << "K downsampled to primes vector size (" << primes.size() << ")." << endl;
     }
 
     unsigned int y = 0;
     // 1. For k hash functions: Calculate hmin for each doc
-    for (unsigned int i = 0; i < k; ++i) {
+    for (unsigned int i = 0; i < t; ++i) {
         if (comments) cout << "Working on hash function #" << i << "." << endl;
         // 1.2. Calculates hmin for set1
         if (comments) cout << "Calculating hmin for set1... ";
@@ -54,5 +54,5 @@ double JaccardMinhash::MinhashSimilitude(unsigned int k) {
         if (comments) cout << endl;
     }
     // 3. Return y/k
-    return (double)y/(double)k;
+    return (double)y/(double)t;
 }
