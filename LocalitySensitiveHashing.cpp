@@ -25,16 +25,16 @@ bool comments = true;
  * @param doc Vector of strings to Hash.
  * @param hashSet Set of pairs wiht minHashes and words of the n numHashFunctions.
  */
-void LocalitySensitiveHashing::computeMinHashForSet(vector<string> &doc, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes){
-    hashSet = vector<pair<string,unsigned int>>(this->numHashFunctions, pair<string,unsigned int>(doc[0],numeric_limits<unsigned int>::max()));
+void LocalitySensitiveHashing::computeMinHashForSet(map<string, int> &docShingles, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes){
+    hashSet = vector<pair<string,unsigned int>>(this->numHashFunctions, pair<string,unsigned int>("",numeric_limits<unsigned int>::max()));
     //sort(doc.begin(), doc.end()); //Ordenamos el documento BORRAR "&" SI SE DESCOMENTA ESTO, SI NO SE PASARÁ POR COPIA
     if (ComputeMinHashForSet_comments) cout << endl;
     for (int i = 0; i < numHashFunctions; i++){
-        for (string word: doc) {
-            double h = this->hashFunctions.stringHash(word, primes[i]);
-            if (hashSet[i].second > h) { 
-                hashSet[i].first = word;
-                hashSet[i].second = h; 
+        for (auto word: docShingles) {
+            word.second = this->hashFunctions.stringHash(word.first, primes[i]);
+            if (hashSet[i].second > word.second) { 
+                hashSet[i].first = word.first;
+                hashSet[i].second = word.second; 
             }
         }
         if (ComputeMinHashForSet_comments) cout << hashSet[i].first << endl; 
@@ -112,7 +112,7 @@ double LocalitySensitiveHashing::similitude(vector<T> &a, vector<T> &b){
 double LocalitySensitiveHashing::LSHSimilitude() {
     vector<unsigned int> primes = this->hashFunctions.getPrimeNumbers();
     
-    int k1 = 5;
+    int k1 = 2;
     if (doc1.size() > 9) k1 = 9;
     if (comments) cout << "Computing Shingles of doc1... ";
     doc1Shingles = kShingleSetMap(doc1,k1);
@@ -120,23 +120,24 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     
     int k2 = 2;
     if (doc2.size() > 9) k2 = 9;
-    if (comments) cout << "Computing Shingles of doc1... ";
+    if (comments) cout << "Computing Shingles of doc2... ";
     doc2Shingles = kShingleSetMap(doc2,k2);
     if (comments) cout << "done" << endl;
+ 
     
+    if (comments) cout << "Computing MinHash of doc1... ";
+    computeMinHashForSet(doc1Shingles, hashSet1, primes);
+    if (comments) cout << "done" << endl;
     
-//    if (comments) cout << "Computing MinHash of doc1... ";
-//    computeMinHashForSet(this->doc1, hashSet1, primes);
-//    if (comments) cout << "done" << endl;
-//    
-//    if (comments) cout << "Computing MinHash of doc2... ";
-//    computeMinHashForSet(this->doc2, hashSet2, primes);
-//    if (comments) cout << "done" << endl;
-//
-//    vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
-//    vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
-//    
-//    //cout << similittude (v1, v2) << endl;
+    if (comments) cout << "Computing MinHash of doc2... ";
+    computeMinHashForSet(doc2Shingles, hashSet2, primes);
+    if (comments) cout << "done" << endl;
+
+    vector<unsigned int> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.second);
+    vector<unsigned int> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.second);
+    
+    cout << similitude(v1, v2) << endl;
+    
 //    
 //    if (comments) cout << "Breaking hashSet1 into bands & rows... ";
 //    breakSetIntoBandRows(hashSet1, hashMatrix1);

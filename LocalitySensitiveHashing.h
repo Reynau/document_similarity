@@ -29,7 +29,7 @@ public:
         hashFunctions(hashFunctions), doc1(doc1), doc2(doc2), numHashFunctions(k), numBands(b), rowsInBands (k/b) {};
 
     double LSHSimilitude();
-    void computeMinHashForSet(vector<string> &doc, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes);
+    void computeMinHashForSet(map<string, int> &docShingles, vector<pair<string,unsigned int>> &hashSet, const vector<unsigned int> &primes);
     void breakSetIntoBandRows(vector<pair<string,unsigned int>> &hashSet,  vector<vector<unsigned int>> &hashMatrix);
     void computeMinHashForMatrix(vector<vector<unsigned int>> &hashMatrix, vector<unsigned int> &bucketSet);
     template <typename T> double similitude(vector<T> &a, vector<T> &b);
