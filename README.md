@@ -13,5 +13,3 @@ similars d’un donat.
 - Obtain **Jaccard** similitude index for documents represented with **k-shingle**.
 - Obtain **Jaccard** similitude index for documents represented with **minhash**.
 - Implement a **Locality-Sensitive Hashing (LSH)** algorithm based on **minhash**.
-
-Let's do it! :v:
