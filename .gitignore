@@ -7,6 +7,6 @@ docsim/Makefile
 nbproject/
 dist/
 .dep.inc
-Makefile
 LocalitySensitiveHashing - copia.cpp
 /LocalitySensitiveHashing - copia.h
+main.exe

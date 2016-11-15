@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <string>
 #include <stdlib.h>
 #include "JaccardKShingle.h"
 #include "JaccardMinhash.h"

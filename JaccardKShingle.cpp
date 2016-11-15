@@ -6,7 +6,8 @@
 #include <map>
 
 using namespace std;
-double KShingleSimilitude(std::vector<string> &doc1,std::vector<string> &doc2, unsigned int k) {
+
+double KShingleSimilitude(vector<string> &doc1,vector<string> &doc2, unsigned int k) {
     //Al principio ponemos todos shingles del primer documento en el map.
     map<string, int> union_map;
     double intersection_count = 0;
@@ -27,7 +28,7 @@ double KShingleSimilitude(std::vector<string> &doc1,std::vector<string> &doc2, u
                 s.append(doc2[i+j]);
             }
         }
-        std::map<string,int>::iterator it;
+        map<string,int>::iterator it;
         it = union_map.find(s);
         if(it!=union_map.end()){
             //si el elemento ya formaba parte de los shingles del primer documento incrementamos el numero de elementos de interseccion
