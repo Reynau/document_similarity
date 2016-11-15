@@ -144,7 +144,7 @@ double LocalitySensitiveHashing::LSHSimilitude() {
 
     vector<string> v1; for (pair<string,unsigned int> p: hashSet1) v1.push_back(p.first);
     vector<string> v2; for (pair<string,unsigned int> p: hashSet2) v2.push_back(p.first);
-//    
+
 //    cout << similitude(v1, v2) << endl;
     
     if (comments) cout << "Breaking hashSet1 into bands & rows... ";
@@ -163,7 +163,7 @@ double LocalitySensitiveHashing::LSHSimilitude() {
     if (comments) cout << "Computing MinHash of hashMatrix2... ";
     computeMinHashForMatrix(hashMatrix2, bucketSet2, primes);
     if (comments) cout << "done" << endl;
-    
+
     cout << "Similitude (minHash): " << similitude(v1, v2) << endl;
     return similitude(bucketSet1, bucketSet2);
 }
