@@ -14,7 +14,7 @@ vector<string> readFileAsArray(string file_name){
     vector<string> vec_doc = vector<string>(); //Vector de strings con las palabras ORDENADAS del archivo de entrada
 
     ifstream loadFile_libro;
-    loadFile_libro.open(("./randomDocs/"+file_name).c_str());
+    loadFile_libro.open(("./novels/"+file_name).c_str());
     if (loadFile_libro.is_open()) {    //Si existe el archivo lo leemos
         while (!loadFile_libro.eof()) { //Mientras existan palabras
             loadFile_libro >> output;
